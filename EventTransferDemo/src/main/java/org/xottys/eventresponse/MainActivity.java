@@ -3,14 +3,13 @@
  * 1）事件传递顺序：Activity->MyLayout->MyScrollView->MyButton，它们每一个的处理流程如下：
  * 2）dispatchTouchEvent->onInterceptTouchEvent(ViewGroup特有)->外部onTouchListener
  * ->onTouchEvent-->外部onClickListenner监听器
- * 3) 控件只会触发自身的外部onTouchListener和外部onClickListener，其上层控件的不会被触发
- * 4）上述方法中任一个返回true，事件就不再继续传递
+ * 3)控件只会触发自身的外部onTouchListener和外部onClickListener，其上层控件的不会被触发
+ * 4)上述方法中任一个返回true，事件就不再继续传递
  * <p>
  * <br/>Copyright (C), 2017-2018, Steve Chang
  * <br/>This program is protected by copyright laws.
- * <br/>Program Name:HttpDemo
+ * <br/>Program Name:EventTransferDemo
  * <br/>Date:Aug，2017
- *
  * @author xottys@163.com
  * @version 1.0
  */
@@ -29,12 +28,15 @@ import static org.xottys.eventresponse.R.id.view;
 
 public class MainActivity extends Activity {
     private static final String TAG = "EventTransferDemo";
-    private MyButton myButton;
+
     private MyLayout myLayout;
     private MyScrollView myScrollView;
+    private MyButton myButton;
     private TextView tv;
-    private int sNo;
 
+    //给显示信息编号
+    private int sNo;
+    //编号后在UI上统一显示，
     private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -46,6 +48,7 @@ public class MainActivity extends Activity {
         }
     };
 
+    //显示信息暂存在这里
     private String str;
 
     @Override
@@ -55,25 +58,21 @@ public class MainActivity extends Activity {
         myButton = (MyButton) findViewById(R.id.bt);
         myScrollView = (MyScrollView) findViewById(view);
         myLayout = (MyLayout) findViewById(R.id.mLayout);
-
         tv = (TextView) findViewById(R.id.tv);
 
-        myButton.setBackgroundColor(0xbd292f34);
-        myButton.setTextColor(0xFFFFFFFF);
-
-
         myButton.setHandler(handler);
-        //onClick实现方式1：使用匿名内部类的方式实现监听事件，适合按钮少的时候用
+        //启动单击监听器
         myButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 str = "MyButton Clicked!";
+                //信息先在终端打印，然后传递给Handler统一显示
                 System.out.println(str);
                 Message msg = Message.obtain();
                 msg.obj = str;
                 handler.sendMessage(msg);
             }
         });
-
+        //启动触屏监听器
         myButton.setOnTouchListener(new Button.OnTouchListener() {
 
             @Override
@@ -92,27 +91,33 @@ public class MainActivity extends Activity {
                         str = "exMyButton---onTouch---CANCEL";
                         break;
                     default:
+                        str = "exMyButton---onTouch---DEFAULT";
                         break;
                 }
+                //信息先在终端打印，然后传递给Handler统一显示
                 System.out.println(str);
                 Message msg = Message.obtain();
                 msg.obj = str;
                 handler.sendMessage(msg);
+
                 return false;
             }
         });
+
         myScrollView.setHandler(handler);
+        //启动单击监听器
         myScrollView.setOnClickListener(new MyScrollView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                str = "View Clicked!";
+                str = "MyScrollView Clicked!";
+                //信息先在终端打印，然后传递给Handler统一显示
                 System.out.println(str);
                 Message msg = Message.obtain();
                 msg.obj = str;
                 handler.sendMessage(msg);
             }
         });
-
+        //启动触屏监听器
         myScrollView.setOnTouchListener(new MyScrollView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -130,28 +135,34 @@ public class MainActivity extends Activity {
                         str = "exMyScrollView---onTouch---CANCEL";
                         break;
                     default:
+                        str = "exMyScrollView---onTouch---DEFAULT";
                         break;
                 }
+                //信息先在终端打印，然后传递给Handler统一显示
                 System.out.println(str);
                 Message msg = Message.obtain();
                 msg.obj = str;
                 handler.sendMessage(msg);
+
                 return false;
             }
         });
+
         myLayout.setHandler(handler);
+        //启动单击监听器
         myLayout.setOnClickListener(new MyLayout.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 str = "MyLayout Clicked!";
+                //信息先在终端打印，然后传递给Handler统一显示
                 System.out.println(str);
                 Message msg = Message.obtain();
                 msg.obj = str;
                 handler.sendMessage(msg);
             }
         });
-
+        //启动触屏监听器
         myLayout.setOnTouchListener(new MyLayout.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -169,17 +180,21 @@ public class MainActivity extends Activity {
                         str = "exMyLayout---onTouch---CANCEL";
                         break;
                     default:
+                        str = "exMyLayout---onTouch---DEFAULT";
                         break;
                 }
+                //信息先在终端打印，然后传递给Handler统一显示
                 System.out.println(str);
                 Message msg = Message.obtain();
                 msg.obj = str;
                 handler.sendMessage(msg);
+
                 return false;
             }
         });
     }
 
+    //重写Activity的dispatchTouchEvent
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -199,13 +214,16 @@ public class MainActivity extends Activity {
             default:
                 break;
         }
+        //信息先在终端打印，然后传递给Handler统一显示
         System.out.println(str);
         Message msg = Message.obtain();
         msg.obj = str;
         handler.sendMessage(msg);
+
         return super.dispatchTouchEvent(event);
     }
 
+    //重写Activity的onTouchEvent
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -224,10 +242,14 @@ public class MainActivity extends Activity {
             default:
                 break;
         }
+        //信息先在终端打印，然后传递给Handler统一显示
         System.out.println(str);
         Message msg = Message.obtain();
         msg.obj = str;
         handler.sendMessage(msg);
+
         return super.onTouchEvent(event);
     }
+
+   //Activity没有onInterceptTouchEvent(MotionEvent event)
 }
