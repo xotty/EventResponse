@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#FFFFFFFF"
-    android:orientation="vertical"
-    android:weightSum="1">
-
-    <org.xottys.eventresponse.MyLayout
+    <org.xottys.eventresponse.MyLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFFFF"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="vertical">
 
         <org.xottys.eventresponse.MyScrollView
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:background="#e6e5d8"
             android:clickable="true"
-            android:background="#e6e5d8">
+            android:focusable="true"
+            android:descendantFocusability="afterDescendants"
+            android:focusableInTouchMode="true">
+
             <org.xottys.eventresponse.MyButton
                 android:id="@+id/bt"
                 android:layout_width="120dp"
@@ -32,7 +25,6 @@
                 android:gravity="center_horizontal"
                 android:text="Button"
                 android:textAllCaps="false"
-                android:clickable="false"
                 android:textSize="24sp"
                 android:visibility="visible" />
         </org.xottys.eventresponse.MyScrollView>
@@ -41,10 +33,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textSize="18sp"
         android:textColor="@android:color/holo_blue_dark" />
-    </LinearLayout>
 </org.xottys.eventresponse.MyLayout>
-</LinearLayout>
 

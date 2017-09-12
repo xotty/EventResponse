@@ -2,9 +2,11 @@
  * 本例以Button为例演示了事件的分发、处理和拦截流程及其传递顺序
  * 1）事件传递顺序：Activity->MyLayout->MyScrollView->MyButton，它们每一个的处理流程如下：
  * 2）dispatchTouchEvent->onInterceptTouchEvent(ViewGroup特有)->外部onTouchListener
- * ->onTouchEvent-->外部onClickListenner监听器
+ * ->onTouchEvent(此处实际处理时事件)-->外部onClickListenner监听器
  * 3)控件只会触发自身的外部onTouchListener和外部onClickListener，其上层控件的不会被触发
- * 4)上述方法中任一个返回true，事件就不再继续传递
+ * 4)上述方法中任一个返回true，事件就不再继续传递，onInterceptTouchEvent返回true则传给自身的onTouchEvent处理
+ * 返回false则传给子控件处理。
+ * 5）ViewGroup里的onTouchEvent默认返回false；View里的onTouchEvent返回返回true.这样才能执行多次touch事件。
  * <p>
  * <br/>Copyright (C), 2017-2018, Steve Chang
  * <br/>This program is protected by copyright laws.
@@ -103,9 +105,10 @@ public class MainActivity extends Activity {
                 return false;
             }
         });
-
+        myScrollView.setClickable(true);
         myScrollView.setHandler(handler);
-        //启动单击监听器
+
+        //启动单击监听器，由于ScrollView对其OntouchEvent进行了重写，取消了onClick事件的响应，所以该方法永远不会被执行
         myScrollView.setOnClickListener(new MyScrollView.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +120,7 @@ public class MainActivity extends Activity {
                 handler.sendMessage(msg);
             }
         });
+
         //启动触屏监听器
         myScrollView.setOnTouchListener(new MyScrollView.OnTouchListener() {
             @Override

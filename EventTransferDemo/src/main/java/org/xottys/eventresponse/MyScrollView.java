@@ -4,6 +4,7 @@
  * 2）onInterceptTouchEvent
  * 3）onTouchEvent
  * 事件处理后完毕将响应信息传给Activity，并继续传递该事件
+ * ScrollView对其OntouchEvent进行了重写，取消了onClick事件的响应
  * <p>
  * <br/>Copyright (C), 2017-2018, Steve Chang
  * <br/>This program is protected by copyright laws.
@@ -114,5 +115,6 @@ public class MyScrollView extends ScrollView {
         handler.sendMessage(msg);
         return super.onTouchEvent(event);
     }
+
 }
 
