@@ -45,19 +45,15 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
 
-import static org.xottys.eventresponse.R.id.gesture;
-
-
-public class MainActivity extends Activity implements GestureOverlayView.OnGesturingListener {
+public class GestureActivity extends Activity implements GestureOverlayView.OnGesturingListener {
     private static final String TAG = "GestureDemo";
 
-    private Button bt, bt1, bt2;
-    private View view;
+    private Button  bt1, bt2;
     private TextView tv, tv1;
     private EditText et1;
- 
+
     private GestureDetector mGestureDetector;
-  
+
     private GestureOverlayView mGestureView;
     private Gesture mGesture;
     private static GestureLibrary mGestureLib;
@@ -66,15 +62,15 @@ public class MainActivity extends Activity implements GestureOverlayView.OnGestu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        bt = (Button) findViewById(R.id.bt);
-        bt1 = (Button) findViewById(R.id.bt1);
-        bt2 = (Button) findViewById(R.id.bt2);
+        setContentView(R.layout.activity_gesture);
+        Button bt =  findViewById(R.id.bt);
+        bt1 =  findViewById(R.id.bt1);
+        bt2 =  findViewById(R.id.bt2);
 
-        tv = (TextView) findViewById(R.id.tv);
-        tv1 = (TextView) findViewById(R.id.tv1);
-        et1 = (EditText) findViewById(R.id.et1);
-        mGestureView = (GestureOverlayView) findViewById(gesture);
+        tv = findViewById(R.id.tv);
+        tv1 =  findViewById(R.id.tv1);
+        et1 =  findViewById(R.id.et1);
+        mGestureView =  findViewById(R.id.gesture);
 
         bt.setBackgroundColor(0xbd292f34);
         bt.setTextColor(0xFFFFFFFF);
@@ -103,7 +99,7 @@ public class MainActivity extends Activity implements GestureOverlayView.OnGestu
         //在SDCard中定义自定义手势库文件mStoreFile->mGestureLib
         File sdDir = null;
         boolean sdCardExist = Environment.getExternalStorageState()
-                .equals(android.os.Environment.MEDIA_MOUNTED);//判断sd卡是否存在
+                .equals(Environment.MEDIA_MOUNTED);//判断sd卡是否存在
         if (sdCardExist) {
             sdDir = Environment.getExternalStorageDirectory();//获取跟目录
             mStoreFile = new File(sdDir.toString() + "/" + "gesturelib");

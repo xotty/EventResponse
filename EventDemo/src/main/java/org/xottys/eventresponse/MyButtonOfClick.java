@@ -25,14 +25,14 @@ import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MyButton extends Button{
+public class MyButtonOfClick extends Button{
     private TextView tv;
 
     public void setTv(TextView tv) {
         this.tv = tv;
     }
 
-    public MyButton(Context context, AttributeSet set)
+    public MyButtonOfClick(Context context, AttributeSet set)
 	{
 		super(context, set);
 	}
@@ -41,10 +41,10 @@ public class MyButton extends Button{
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 		super.onKeyDown(keyCode, event);
-        tv.append("onKeyDown in MyButton\n");
-		Log.v("-MyButton-", "onKeyDown in MyButton");
-		//返回true，表明该事件不会向外扩散
-		return false;
+        tv.append("\n MyButton--onKeyDown:"+keyCode);
+		Log.v("MyButton", "MyButton--onKeyDown");
+
+		return true;
 	}
 
 	@Override

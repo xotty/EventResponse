@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <org.xottys.eventresponse.MyScrollView
-                android:id="@+id/view"
+                android:id="@+id/scrollview"
                 android:layout_width="300dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"

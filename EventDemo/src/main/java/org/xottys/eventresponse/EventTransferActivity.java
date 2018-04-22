@@ -27,9 +27,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import static org.xottys.eventresponse.R.id.view;
 
-public class MainActivity extends Activity {
+public class EventTransferActivity extends Activity {
     private static final String TAG = "EventTransferDemo";
     private TextView tv;
 
@@ -55,11 +54,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        MyButton myButton = (MyButton) findViewById(R.id.bt);
-        MyScrollView myScrollView = (MyScrollView) findViewById(view);
-        MyLayout myLayout = (MyLayout) findViewById(R.id.mLayout);
-        tv = (TextView) findViewById(R.id.tv);
+        setContentView(R.layout.activity_event_transfer);
+        MyButton myButton =  findViewById(R.id.bt);
+        MyScrollView myScrollView = findViewById(R.id.scrollview);
+        MyLayout myLayout =  findViewById(R.id.mLayout);
+        tv = findViewById(R.id.tv);
 
         myButton.setHandler(handler);
         //启动单击监听器

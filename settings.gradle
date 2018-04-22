@@ -1,0 +1,1 @@
+include ':EventClickDemo', ':EventTransferDemo', ':GestureDemo', ':EventDemo'
