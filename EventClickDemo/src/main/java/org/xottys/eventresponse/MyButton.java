@@ -41,10 +41,10 @@ public class MyButton extends Button{
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 		super.onKeyDown(keyCode, event);
-        tv.append("onKeyDown in MyButton\n");
-		Log.v("-MyButton-", "onKeyDown in MyButton");
-		//返回true，表明该事件不会向外扩散
-		return false;
+        tv.append("\n MyButton--onKeyDown:"+keyCode);
+		Log.v("MyButton", "MyButton--onKeyDown");
+
+		return true;
 	}
 
 	@Override

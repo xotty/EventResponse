@@ -24,11 +24,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements Button.OnClickListener,Button.OnLongClickListener {
-    private static final String TAG = "ClickDemo";
+public class MainActivity extends Activity implements Button.OnClickListener,Button.OnLongClickListener,Button.OnKeyListener {
+    private static final String TAG = "EventClick";
     private static final int longClcikTimeInterval = 500;
-//    private static MyButton bt4;
-//    private Button  bt1,bt2, bt3;
     private TextView tv;
 
     private static int count;
@@ -39,11 +37,11 @@ public class MainActivity extends Activity implements Button.OnClickListener,But
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button bt1 = (Button) findViewById(R.id.bt1);
-        Button bt2 = (Button) findViewById(R.id.bt2);
-        Button bt3 = (Button) findViewById(R.id.bt3);
-        MyButton bt4 = (MyButton) findViewById(R.id.bt4);
-        tv = (TextView) findViewById(R.id.tv);
+        Button bt1 =  findViewById(R.id.bt1);
+        Button bt2 =  findViewById(R.id.bt2);
+        Button bt3 =  findViewById(R.id.bt3);
+        MyButton bt4 =  findViewById(R.id.bt4);
+        tv =  findViewById(R.id.tv);
 
         bt1.setBackgroundColor(0xbd292f34);
         bt1.setTextColor(0xFFFFFFFF);
@@ -59,6 +57,10 @@ public class MainActivity extends Activity implements Button.OnClickListener,But
         bt1.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setFocusable(true);
+                v.setFocusableInTouchMode(true);
+                v.requestFocus();
+                v.requestFocusFromTouch();
                 tv.setText("Button1被单击了！");
                 Log.i(TAG, "Button1被单击了");
             }
@@ -81,10 +83,10 @@ public class MainActivity extends Activity implements Button.OnClickListener,But
                     , int keyCode, KeyEvent event) {
                 // 只处理按下键的事件
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    tv.setText("the onKeyDown in Listener\n");
-                    Log.v("-Listener-", "the onKeyDown in Listener");
+                    tv.setText("Button1--- onKeyDown:"+keyCode+"\n");
+                    Log.i(TAG, "Button1--- onKeyDown");
                 }
-                // 返回false，表明该事件会向外传播
+                // 返回false，表明该事件会向外传播到Activity，true则在此处终止
                 return false;
             }
         });
@@ -96,6 +98,7 @@ public class MainActivity extends Activity implements Button.OnClickListener,But
          bt2.setOnClickListener(new (MyOnClicklistener));
          */
         bt2.setOnLongClickListener(this);
+        bt2.setOnKeyListener(this);
 
         //bt3在xml定义中关联了单击事件到click_bt3方法，无需再写关联代码
 
@@ -104,23 +107,24 @@ public class MainActivity extends Activity implements Button.OnClickListener,But
         bt4.setOnClickListener(this);
         bt4.setOnLongClickListener(this);
         bt4.setTv(tv);
-
-
     }
-
-
 
     //onClick实现方式2：使用接口方式实现监听事件
     @Override
     public void onClick(View v) {
+        v.setFocusable(true);
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
+        v.requestFocusFromTouch();
         switch (v.getId()) {
             case R.id.bt2:
-
                 tv.setText("Button2被单击了！");
                 Log.i(TAG, "Button2被单击了！");
+                break;
             case R.id.bt4:
                 tv.setText("MyButton被单击了！");
                 Log.i(TAG, "MyButton被单击了！");
+                break;
         }
     }
 
@@ -132,25 +136,39 @@ public class MainActivity extends Activity implements Button.OnClickListener,But
 
                 tv.setText("Button2被长按了！");
                 Log.i(TAG, "Button2被长按了！");
-                //返回true，表明已完全处理该事件，该事件不再向外扩散
+                break;
             case R.id.bt4:
                 tv.setText("MyButton被长按了！");
                 Log.i(TAG, "MyButton被长按了！");
+                break;
 
         }
         //返回true，表明已完全处理该事件，该事件不再向外扩散
         return true;
     }
 
-    //重写onKeyDown方法，该方法可监听它所包含的所有组件的按键被按下事件
+    @Override
+    public boolean onKey(View source
+            , int keyCode, KeyEvent event) {
+        // 只处理按下键的事件
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            tv.setText("Button2--- onKeyDown:"+keyCode+"\n");
+            Log.i(TAG, "Button2--- onKeyDown");
+        }
+        // 返回false，表明该事件会向外传播
+        return false;
+    }
+
+    //重写Activity onKeyDown方法，该方法可监听它所包含的所有组件的按键被按下事件
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         super.onKeyDown(keyCode, event);
-        tv.append("onKeyDown! \n");
-        Log.v(TAG, "onKeyDown");
+        tv.append("\n Activity--onKeyDown:"+keyCode+"!");
+        Log.v(TAG, "Activity--onKeyDown");
         //返回false，表明并未完全处理该事件，该事件依然向外扩散
         return false;
     }
+
     //onClick实现方式3：直接布局文件中绑定到标签，广泛适用于各种情况
     public void click_bt3(View v) {
         tv.setText("Button3被单击了！");
