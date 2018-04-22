@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EventClickrDemo/EventClickDemo.iml" filepath="$PROJECT_DIR$/EventClickrDemo/EventClickDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/EventDemo/EventDemo.iml" filepath="$PROJECT_DIR$/EventDemo/EventDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/EventResponse.iml" filepath="$PROJECT_DIR$/.idea/EventResponse.iml" />
       <module fileurl="file://$PROJECT_DIR$/EventTransferDemo/EventTransferDemo.iml" filepath="$PROJECT_DIR$/EventTransferDemo/EventTransferDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/GestureDemo/GestureDemo.iml" filepath="$PROJECT_DIR$/GestureDemo/GestureDemo.iml" />
     </modules>
