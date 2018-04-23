@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EventDemo</string>
+    <string name="app_name">EventResponse</string>
     <string name="error_missing_name">未输入手势名称</string>
     <string name="save_success">新建手势保存成功</string>
     <!-- Buttons -->

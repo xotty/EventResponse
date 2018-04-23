@@ -9,7 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/EventClickDemo" />
-            <option value="$PROJECT_DIR$/EventDemo" />
+            <option value="$PROJECT_DIR$/EventResponseDemo" />
             <option value="$PROJECT_DIR$/EventTransferDemo" />
             <option value="$PROJECT_DIR$/GestureDemo" />
           </set>

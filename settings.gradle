@@ -1,1 +1,1 @@
-include ':EventClickDemo', ':EventTransferDemo', ':GestureDemo', ':EventDemo'
+include ':EventClickDemo', ':EventTransferDemo', ':GestureDemo', ':EventResponseDemo'
